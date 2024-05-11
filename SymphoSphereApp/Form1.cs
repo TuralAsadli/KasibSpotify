@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using FontAwesome.Sharp;
+using Guna.UI2.WinForms;
 using NAudio.Wave;
 using SymphoSphereApp.DTOs;
 using SymphoSphereApp.Entities;
 using SymphoSphereApp.Services;
 using SymphoSphereApp.Utilities;
+using System.Numerics;
 
 namespace SymphoSphereApp
 {
@@ -26,6 +28,8 @@ namespace SymphoSphereApp
             audioFileReader = new AudioFileReader("C:\\Users\\Tural\\Downloads\\Bir yazıq uşaq Grunge.mp3");
             songService = new SongService();
             userService = new UserService();
+
+            panel9.Controls.Clear();
         }
 
 
@@ -118,9 +122,9 @@ namespace SymphoSphereApp
         {
 
             Button button = (Button)sender;
-            GetSongDto item = (GetSongDto)button.Tag; // Retrieve the item object from the Tag property of the button
+            GetSongDto item = (GetSongDto)button.Tag;
 
-            // Now you have access to the selected item, you can do whatever you want with it
+
             MessageBox.Show($"Item clicked: ID={item.Id}, Name={item.Name}");
         }
 
@@ -144,6 +148,25 @@ namespace SymphoSphereApp
             waveOutDevice.Play();
 
 
+        }
+
+        private async void addOnClickLikedEvent(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Song item = (Song)button.Tag;
+
+
+            waveOutDevice.Stop();
+            waveOutDevice.Dispose();
+            audioFileReader.Dispose();
+
+            waveOutDevice = new WaveOut();
+            //audioFileReader = new AudioFileReader("C:\\Users\\Tural\\Downloads\\Bir yazıq uşaq Grunge.mp3");
+            audioFileReader = new AudioFileReader(item.FilePath);
+            waveOutDevice.Volume = 0.1f;
+
+            waveOutDevice.Init(audioFileReader);
+            waveOutDevice.Play();
         }
 
 
@@ -174,7 +197,7 @@ namespace SymphoSphereApp
                 Panel nameLabel = new Panel();
                 nameLabel.Location = new Point(30, yPos);
                 nameLabel.Size = new Size(512, 84);
-                nameLabel.BackColor = Color.FromArgb(12, 12, 12);
+                nameLabel.BackColor = Color.FromArgb(46, 46, 50);
                 nameLabel.Text = item.Name.ToString();
                 nameLabel.AutoSize = true;
                 panel9.Controls.Add(nameLabel);
@@ -188,6 +211,8 @@ namespace SymphoSphereApp
                 iconButtonName.Tag = item;
                 iconButtonName.Click += addSongToLiked;
                 iconButtonName.Text = item.Name;
+                iconButtonName.FlatAppearance.BorderSize = 0;
+                iconButtonName.FlatStyle = FlatStyle.Flat;
                 nameLabel.Controls.Add(iconButtonName);
 
 
@@ -204,6 +229,8 @@ namespace SymphoSphereApp
                 iconButtonDuration.BackColor = System.Drawing.Color.FromArgb(46, 46, 50);
                 iconButtonDuration.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
                 iconButtonDuration.Text = item.Duration.ToString();
+                iconButtonDuration.FlatAppearance.BorderSize = 0;
+                iconButtonDuration.FlatStyle = FlatStyle.Flat;
                 nameLabel.Controls.Add(iconButtonDuration);
 
                 IconButton iconButton = new IconButton();
@@ -215,6 +242,8 @@ namespace SymphoSphereApp
                 iconButton.IconColor = System.Drawing.Color.FromArgb(200, 200, 200);
                 iconButton.Tag = item;
                 iconButton.Enabled = true;
+                iconButton.FlatAppearance.BorderSize = 0;
+                iconButton.FlatStyle = FlatStyle.Flat;
                 iconButton.Click += addOnClickEvent;
                 nameLabel.Controls.Add(iconButton);
 
@@ -273,7 +302,7 @@ namespace SymphoSphereApp
                 Panel nameLabel = new Panel();
                 nameLabel.Location = new Point(30, yPos);
                 nameLabel.Size = new Size(512, 84);
-                nameLabel.BackColor = Color.Blue;
+                nameLabel.BackColor = Color.FromArgb(46, 46, 50);
                 nameLabel.Text = item.Name.ToString();
                 nameLabel.AutoSize = true;
                 panel9.Controls.Add(nameLabel);
@@ -285,6 +314,8 @@ namespace SymphoSphereApp
                 iconButtonName.BackColor = System.Drawing.Color.FromArgb(46, 46, 50);
                 iconButtonName.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
                 iconButtonName.Text = item.Name;
+                iconButtonName.FlatAppearance.BorderSize = 0;
+                iconButtonName.FlatStyle = FlatStyle.Flat;
                 nameLabel.Controls.Add(iconButtonName);
 
 
@@ -301,6 +332,8 @@ namespace SymphoSphereApp
                 iconButtonDuration.BackColor = System.Drawing.Color.FromArgb(46, 46, 50);
                 iconButtonDuration.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
                 iconButtonDuration.Text = item.Duration.ToString();
+                iconButtonDuration.FlatAppearance.BorderSize = 0;
+                iconButtonDuration.FlatStyle = FlatStyle.Flat;
                 nameLabel.Controls.Add(iconButtonDuration);
 
                 IconButton iconButton = new IconButton();
@@ -312,7 +345,9 @@ namespace SymphoSphereApp
                 iconButton.IconColor = System.Drawing.Color.FromArgb(200, 200, 200);
                 iconButton.Tag = item;
                 iconButton.Enabled = true;
-                iconButton.Click += addOnClickEvent;
+                iconButton.FlatAppearance.BorderSize = 0;
+                iconButton.FlatStyle = FlatStyle.Flat;
+                iconButton.Click += addOnClickLikedEvent;
                 nameLabel.Controls.Add(iconButton);
 
                 yPos += 90;
@@ -350,10 +385,12 @@ namespace SymphoSphereApp
 
             TextBox button1 = new TextBox();
             button1.Location = new Point(50, 300);
+            button1.Name = "TextBoxName";
             panel9.Controls.Add(button1);
 
             TextBox button2 = new TextBox();
             button2.Location = new Point(250, 300);
+            button2.Name = "TextBoxPath";
             panel9.Controls.Add(button2);
 
 
@@ -373,8 +410,25 @@ namespace SymphoSphereApp
         }
 
 
+
+
         public async void SendFileEventHandle(object sender, EventArgs e)
         {
+            Song song = new Song();
+            song.Duration = TimeSpan.FromSeconds(55);
+            song.Explicit = false;
+            foreach (Control item in panel9.Controls)
+            {
+
+                if (item.Name == "TextBoxName")
+                {
+                    song.Name = item.Text;
+                }
+                if (item.Name == "TextBoxPath")
+                {
+                    song.Path = item.Text;
+                }
+            }
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Select File";
             openFileDialog.Filter = "All files (*.*)|*.*";
@@ -390,8 +444,7 @@ namespace SymphoSphereApp
                 File.Copy(selectedFilePath, destinationFilePath);
 
                 IconButton btn = (IconButton)sender;
-                Song song = btn.Tag as Song;
-
+                //song.Name = openFileDialog.FileName;
                 song.FilePath = destinationFilePath;
 
                 await songService.CreateSong(song);
@@ -542,6 +595,42 @@ namespace SymphoSphereApp
         }
 
         private void openFileDialog2_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void iconButton11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel26_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2TrackBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            guna2TrackBar1 = (Guna2TrackBar)sender;
+            waveOutDevice.Volume = (float)guna2TrackBar1.Value / 100;
+
+        }
+
+        private void iconButton12_Click(object sender, EventArgs e)
+        {
+            if (waveOutDevice.PlaybackState == PlaybackState.Paused)
+            {
+                iconButton12.IconChar = IconChar.Pause;
+                waveOutDevice.Play();
+            }
+            else
+            {
+                iconButton12.IconChar = IconChar.Play;
+                waveOutDevice.Pause();
+            }
+        }
+
+        private void iconButton10_Click(object sender, EventArgs e)
         {
 
         }

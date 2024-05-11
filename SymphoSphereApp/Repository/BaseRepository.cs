@@ -66,7 +66,7 @@ namespace SymphoSphereApp.Repository
 
         public async Task<IEnumerable<TEntity>> GetAsync(Func<TEntity, bool> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            return _dbSet.Where(predicate).ToList();
         }
 
         public async Task Remove(TEntity item)
@@ -82,8 +82,10 @@ namespace SymphoSphereApp.Repository
 
         public async Task Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
-            await Save();
+                //_context.Entry(item).State = EntityState.Modified;
+                _context.Update(item);
+                await Save();
+           
         }
 
     }

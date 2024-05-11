@@ -44,11 +44,16 @@
             panel18 = new Panel();
             panel19 = new Panel();
             panel2 = new Panel();
+            panel26 = new Panel();
+            guna2TrackBar1 = new Guna.UI2.WinForms.Guna2TrackBar();
+            iconButton12 = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             panel10 = new Panel();
             panel11 = new Panel();
             panel12 = new Panel();
+            panel25 = new Panel();
+            iconButton11 = new FontAwesome.Sharp.IconButton();
             panel7 = new Panel();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             panel14 = new Panel();
@@ -64,6 +69,7 @@
             userServiceBindingSource = new BindingSource(components);
             bindingSource1 = new BindingSource(components);
             panel9 = new Panel();
+            iconButton10 = new FontAwesome.Sharp.IconButton();
             textBox2 = new TextBox();
             textBox1 = new TextBox();
             panel13 = new Panel();
@@ -72,14 +78,16 @@
             pictureBox1 = new PictureBox();
             iconButton7 = new FontAwesome.Sharp.IconButton();
             openFileDialog1 = new OpenFileDialog();
-            iconButton10 = new FontAwesome.Sharp.IconButton();
+            iconSplitButton1 = new FontAwesome.Sharp.IconSplitButton();
             panel1.SuspendLayout();
             panel22.SuspendLayout();
             panel17.SuspendLayout();
             panel16.SuspendLayout();
             panel2.SuspendLayout();
+            panel26.SuspendLayout();
             panel8.SuspendLayout();
             panel12.SuspendLayout();
+            panel25.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -259,6 +267,7 @@
             // 
             panel2.BackColor = Color.FromArgb(46, 46, 50);
             panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(panel26);
             panel2.Controls.Add(panel8);
             panel2.Controls.Add(panel12);
             panel2.Controls.Add(panel4);
@@ -269,6 +278,43 @@
             panel2.Size = new Size(305, 436);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
+            // 
+            // panel26
+            // 
+            panel26.Controls.Add(guna2TrackBar1);
+            panel26.Controls.Add(iconButton12);
+            panel26.Location = new Point(26, 359);
+            panel26.Name = "panel26";
+            panel26.Size = new Size(229, 52);
+            panel26.TabIndex = 5;
+            panel26.Paint += panel26_Paint;
+            // 
+            // guna2TrackBar1
+            // 
+            guna2TrackBar1.Location = new Point(70, 9);
+            guna2TrackBar1.Name = "guna2TrackBar1";
+            guna2TrackBar1.Size = new Size(156, 29);
+            guna2TrackBar1.TabIndex = 1;
+            guna2TrackBar1.ThumbColor = SystemColors.ScrollBar;
+            guna2TrackBar1.Scroll += guna2TrackBar1_Scroll;
+            // 
+            // iconButton12
+            // 
+            iconButton12.BackColor = Color.FromArgb(46, 46, 50);
+            iconButton12.BackgroundImageLayout = ImageLayout.Center;
+            iconButton12.Dock = DockStyle.Left;
+            iconButton12.FlatAppearance.BorderSize = 0;
+            iconButton12.FlatStyle = FlatStyle.Flat;
+            iconButton12.ForeColor = SystemColors.ActiveCaptionText;
+            iconButton12.IconChar = FontAwesome.Sharp.IconChar.Pause;
+            iconButton12.IconColor = SystemColors.ScrollBar;
+            iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton12.Location = new Point(0, 0);
+            iconButton12.Name = "iconButton12";
+            iconButton12.Size = new Size(64, 52);
+            iconButton12.TabIndex = 0;
+            iconButton12.UseVisualStyleBackColor = false;
+            iconButton12.Click += iconButton12_Click;
             // 
             // panel8
             // 
@@ -318,6 +364,7 @@
             // 
             // panel12
             // 
+            panel12.Controls.Add(panel25);
             panel12.Controls.Add(panel7);
             panel12.Controls.Add(iconButton3);
             panel12.Controls.Add(panel14);
@@ -326,6 +373,27 @@
             panel12.Name = "panel12";
             panel12.Size = new Size(289, 61);
             panel12.TabIndex = 4;
+            // 
+            // panel25
+            // 
+            panel25.Controls.Add(iconButton11);
+            panel25.Location = new Point(6, 61);
+            panel25.Name = "panel25";
+            panel25.Size = new Size(259, 64);
+            panel25.TabIndex = 6;
+            // 
+            // iconButton11
+            // 
+            iconButton11.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton11.IconColor = Color.Black;
+            iconButton11.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton11.Location = new Point(24, 25);
+            iconButton11.Name = "iconButton11";
+            iconButton11.Size = new Size(55, 33);
+            iconButton11.TabIndex = 5;
+            iconButton11.Text = "iconButton11";
+            iconButton11.UseVisualStyleBackColor = true;
+            iconButton11.Click += iconButton11_Click;
             // 
             // panel7
             // 
@@ -476,6 +544,19 @@
             panel9.TabIndex = 2;
             panel9.Paint += panel9_Paint;
             // 
+            // iconButton10
+            // 
+            iconButton10.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton10.IconColor = Color.Black;
+            iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton10.Location = new Point(263, 341);
+            iconButton10.Name = "iconButton10";
+            iconButton10.Size = new Size(94, 29);
+            iconButton10.TabIndex = 3;
+            iconButton10.Text = "iconButton10";
+            iconButton10.UseVisualStyleBackColor = true;
+            iconButton10.Click += iconButton10_Click;
+            // 
             // textBox2
             // 
             textBox2.Location = new Point(250, 274);
@@ -521,6 +602,8 @@
             // 
             iconButton8.BackColor = Color.FromArgb(46, 46, 50);
             iconButton8.Dock = DockStyle.Left;
+            iconButton8.FlatAppearance.BorderSize = 0;
+            iconButton8.FlatStyle = FlatStyle.Flat;
             iconButton8.ForeColor = SystemColors.ScrollBar;
             iconButton8.IconChar = FontAwesome.Sharp.IconChar.None;
             iconButton8.IconColor = Color.Black;
@@ -564,17 +647,17 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // iconButton10
+            // iconSplitButton1
             // 
-            iconButton10.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton10.IconColor = Color.Black;
-            iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton10.Location = new Point(263, 341);
-            iconButton10.Name = "iconButton10";
-            iconButton10.Size = new Size(94, 29);
-            iconButton10.TabIndex = 3;
-            iconButton10.Text = "iconButton10";
-            iconButton10.UseVisualStyleBackColor = true;
+            iconSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            iconSplitButton1.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconSplitButton1.IconColor = Color.Black;
+            iconSplitButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconSplitButton1.IconSize = 48;
+            iconSplitButton1.Name = "iconSplitButton1";
+            iconSplitButton1.Rotation = 0D;
+            iconSplitButton1.Size = new Size(23, 23);
+            iconSplitButton1.Text = "iconSplitButton1";
             // 
             // Form1
             // 
@@ -595,8 +678,10 @@
             panel17.ResumeLayout(false);
             panel16.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel26.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel12.ResumeLayout(false);
+            panel25.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -656,5 +741,11 @@
         private TextBox textBox2;
         private TextBox textBox1;
         private FontAwesome.Sharp.IconButton iconButton10;
+        private FontAwesome.Sharp.IconButton iconButton11;
+        private Panel panel25;
+        private Panel panel26;
+        private FontAwesome.Sharp.IconButton iconButton12;
+        private FontAwesome.Sharp.IconSplitButton iconSplitButton1;
+        private Guna.UI2.WinForms.Guna2TrackBar guna2TrackBar1;
     }
 }
